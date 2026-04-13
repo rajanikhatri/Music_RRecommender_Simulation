@@ -68,12 +68,9 @@ flowchart LR
 
 This is a beginner-friendly simulation of a content-based recommender. It does not learn from listening history. Instead, it uses a transparent scoring rule that is easy to explain in class and easy to trace by hand.
 
-## Biases and Limitations
+## Limitations and Bias
 
-- The catalog is very small, so the recommender can only choose from a few songs.
-- It only uses a few features and ignores things like lyrics, vocals, language, and personal history.
-- If a genre or mood is rare in the dataset, the system may not serve that taste very well.
-- The hand-made scoring weights reflect my design choices, so they can favor some matches more than others.
+This dataset is small, so the recommender only has a limited number of songs to choose from. Some genres and moods appear more often than others, which means the system can lean toward those more common styles. Because of that, users with less common tastes may not get the strongest recommendations. This project also uses simple scoring rules, so it is helpful for learning but it is not the same as a real-world advanced recommender system.
 
 ## How to Run
 
