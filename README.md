@@ -70,9 +70,27 @@ pytest
 
 These profiles make it easy to show different recommendation results in the terminal.
 
-## Screenshot Section
+## Terminal Output Screenshots
 
-Add terminal screenshots here later.
+These screenshots show example recommendations for multiple user profiles in the terminal.
+
+Save the screenshot files in: `images/`
+
+### High-Energy Pop
+
+![High-Energy Pop Output](images/high-energy-pop.png)
+
+### Chill Lofi
+
+![Chill Lofi Output](images/chill-lofi.png)
+
+### Deep Intense Rock
+
+![Deep Intense Rock Output](images/deep-intense-rock.png)
+
+### Test Results
+
+![Pytest Output](images/pytest-results.png)
 
 ## Extra Documents
 
