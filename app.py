@@ -43,6 +43,38 @@ def inject_styles() -> None:
             color: #4f7f5a;
         }
 
+        .page-title {
+            color: #4f7f5a;
+            font-size: 2.15rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.2rem;
+        }
+
+        .page-subtitle {
+            color: #617063;
+            font-size: 1rem;
+            margin-bottom: 1.1rem;
+        }
+
+        div[data-testid="stForm"] {
+            background: #fcfcf8;
+            border: 1px solid #e3eadf;
+            border-radius: 16px;
+            padding: 1rem 1rem 0.75rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        div[data-testid="stForm"] .stSelectbox,
+        div[data-testid="stForm"] .stSlider {
+            margin-bottom: 0.2rem;
+        }
+
+        div[data-testid="stForm"] label {
+            color: #3d5041;
+            font-weight: 600;
+        }
+
         .card {
             background: #ffffff;
             border-radius: 14px;
@@ -90,6 +122,22 @@ def inject_styles() -> None:
             background: #eef4ef;
             color: #47614d;
             font-size: 0.82rem;
+        }
+
+        div[data-testid="stFormSubmitButton"] button {
+            background-color: #7a9e7e !important;
+            color: #ffffff !important;
+            border: 1px solid #7a9e7e !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            padding: 0.55rem 1rem !important;
+            box-shadow: 0 4px 10px rgba(122, 158, 126, 0.24);
+        }
+
+        div[data-testid="stFormSubmitButton"] button:hover {
+            background-color: #6f9173 !important;
+            border-color: #6f9173 !important;
+            color: #ffffff !important;
         }
         </style>
         """,
@@ -146,37 +194,34 @@ def main() -> None:
     """Render the Streamlit app."""
     st.set_page_config(page_title="Music Recommender Simulation", layout="wide")
     inject_styles()
-    st.title("Music Recommender Simulation")
-    st.write(
-        "This simple web app uses the existing content-based recommender "
-        "to suggest songs for a few example listener profiles."
+    st.markdown(
+        """
+        <div class="page-title">Music Recommender Simulation</div>
+        <div class="page-subtitle">Choose a vibe and get song suggestions</div>
+        """,
+        unsafe_allow_html=True,
     )
 
-    left_col, right_col = st.columns([1, 1.5], gap="large")
+    left_col, right_col = st.columns([0.95, 1.55], gap="large")
 
     with left_col:
-        st.subheader("Select Profile")
-        profile_name = st.selectbox("Profile", list(PROFILES.keys()))
-        top_k = st.slider(
-            "Number of Recommendations",
-            min_value=1,
-            max_value=10,
-            value=3,
-        )
+        with st.form("control_form"):
+            st.markdown("### Select Profile")
+            profile_name = st.selectbox("Profile", list(PROFILES.keys()))
+            top_k = st.slider(
+                "Number of Recommendations",
+                min_value=1,
+                max_value=10,
+                value=3,
+            )
+            submitted = st.form_submit_button(
+                "Get Recommendations",
+                use_container_width=True,
+            )
 
         selected_profile = PROFILES[profile_name]
 
-        st.write("Current profile:")
-        st.write(
-            f"Genre: {selected_profile['genre']} | "
-            f"Mood: {selected_profile['mood']}"
-        )
-        st.write(
-            f"Energy: {selected_profile['energy']:.2f} | "
-            f"Tempo: {selected_profile['tempo_bpm']} bpm"
-        )
-
-        if st.button("Get Recommendations", use_container_width=True):
+        if submitted:
             songs = load_songs(str(get_song_path()))
             st.session_state["recommendations"] = recommend_songs(
                 selected_profile,
