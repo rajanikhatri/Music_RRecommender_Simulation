@@ -52,6 +52,18 @@ After each song is scored, all songs are sorted from highest score to lowest sco
 
 One limitation is that the system can over-prioritize genre, especially because the dataset is small.
 
+## System Flow
+
+This diagram shows the main steps the recommender follows.
+
+```mermaid
+flowchart LR
+    A[User Preferences] --> B[Load Songs from CSV]
+    B --> C[Score Each Song]
+    C --> D[Sort by Score]
+    D --> E[Return Top Recommendations]
+```
+
 ## What This Project Simulates
 
 This is a beginner-friendly simulation of a content-based recommender. It does not learn from listening history. Instead, it uses a transparent scoring rule that is easy to explain in class and easy to trace by hand.
