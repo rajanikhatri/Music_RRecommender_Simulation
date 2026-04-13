@@ -1,5 +1,9 @@
 # Music Recommender Simulation
 
+## Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green)](https://musicrecommendersimulation.streamlit.app/)
+
 ## What Is a Recommender System?
 
 A recommender system is a program that tries to suggest things a user will probably like. In music apps, this can be based on song features, listening history, or patterns from other users. This project uses a simple content-based approach, which means it looks at the features of the songs instead of past user behavior.
