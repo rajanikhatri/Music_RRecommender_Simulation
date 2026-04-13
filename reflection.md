@@ -1,24 +1,12 @@
 # Reflection
 
-## Biggest Learning Moment
+## What I Learned
 
-The biggest thing I learned was that a recommender does not need super complicated math to feel useful. A few clear rules for genre, mood, energy, and tempo were enough to make results that mostly made sense, and that helped me understand how recommendation logic works step by step.
+One of the biggest things I learned from this project is that a recommender does not need very complicated math to feel useful. Using simple features like genre, mood, energy, and tempo was enough to create recommendations that often felt meaningful and believable. Building it step by step also helped me understand how a system can turn user preferences into scores and then into ranked results.
 
-## How AI Tools Helped
+## Use of AI Tools
 
-AI tools like Copilot and Codex helped me move faster when I was planning the structure, checking the scoring idea, and cleaning up the writing. They were most helpful when I had a rough idea and needed help turning it into something clearer and easier to read.
-
-## Where AI Suggestions Needed Double-Checking
-
-I still had to double-check AI suggestions against the actual CSV headers, the starter tests, and the assignment directions. Some suggestions sounded good at first, but I had to make sure they actually matched the real data and did not drift away from the simple design I wanted.
-
-## What Was Surprising
-
-What surprised me most was how much the weights changed the ranking. A bonus like `+2.0` for genre match can move a song to the top very quickly, even if another song is closer in energy or tempo. That made me realize how much the designer's choices shape the final recommendations.
-
-## What I Would Improve Next
-
-If I kept working on this, I would add a bigger dataset, let the user choose more than one genre or mood, and try to balance similarity with variety a little better. I would also like to compare this simple content-based system with a recommender that uses listening history.
+I used AI tools like Copilot and Codex to help me think through the structure of the project, generate ideas for the scoring logic, and clean up parts of the code and writing. They helped me move faster, especially when I needed a starting point or wanted to compare different ways to organize the project. At the same time, I still had to review everything carefully, check it against the CSV data and assignment requirements, and make sure I was not trusting the output blindly.
 
 ## Evaluation of Results
 
@@ -29,3 +17,13 @@ One surprising result is Gym Hero appearing in the Deep Intense Rock profile. Wh
 The scoring weights seem reasonable overall. Giving genre the highest weight helps the recommendations feel more natural, while using closeness for energy and tempo allows the system to match different types of preferences instead of always favoring higher values.
 
 This shows that even a simple recommender can feel realistic. Using just a few features like genre, mood, energy, and tempo can produce meaningful results, although it still cannot fully capture human taste in every case.
+
+## Experiment and Observations
+
+I also tried a small scoring experiment by reducing the genre weight and increasing the importance of energy. More specifically, genre match was lowered and energy closeness was made stronger, while mood and tempo stayed the same. This changed the rankings in a noticeable way because songs with the wrong genre could move higher if their energy and tempo were very close to the target.
+
+For example, non-matching genre songs started ranking higher in some profiles, which made the system feel a little less intuitive in those cases. At the same time, the top songs for each profile still stayed mostly consistent when they matched several features at once, so the system did not completely break. That experiment showed me how sensitive the results are to the scoring weights.
+
+## Final Thoughts
+
+I think the biggest strength of this system is that it is simple, understandable, and still works reasonably well. It is easy to explain why a song ranked highly, which makes it good for learning. At the same time, the dataset is small, the results are sensitive to the scoring weights, and the system is still much simpler than the kind of recommender used in real apps.
