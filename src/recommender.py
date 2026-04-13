@@ -134,7 +134,6 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score = 0.0
     reasons = []
 
-    # Experiment: lower genre weight and higher energy weight
     target_genre = _normalize_text(
         user_prefs.get("genre") or user_prefs.get("favorite_genre")
     )
@@ -145,8 +144,8 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     song_mood = _normalize_text(song.get("mood"))
 
     if target_genre and song_genre == target_genre:
-        score += 1.0
-        reasons.append("genre match (+1.0)")
+        score += 2.0
+        reasons.append("genre match (+2.0)")
 
     if target_mood and song_mood == target_mood:
         score += 1.0
@@ -160,11 +159,10 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     if target_energy is not None and song_energy is not None:
         energy_gap = abs(song_energy - target_energy)
         energy_score = max(0.0, 1.0 - energy_gap)
-        energy_points = energy_score * 2.0
 
-        if energy_points >= 0.1:
-            score += energy_points
-            reasons.append(f"energy close (+{energy_points:.2f})")
+        if energy_score >= 0.1:
+            score += energy_score
+            reasons.append(f"energy close (+{energy_score:.2f})")
 
     target_tempo = user_prefs.get("tempo_bpm")
     if target_tempo is None:
