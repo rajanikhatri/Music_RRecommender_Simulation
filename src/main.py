@@ -1,33 +1,73 @@
-"""
-Command line runner for the Music Recommender Simulation.
+"""Command line demo for the Music Recommender Simulation."""
 
-This file helps you quickly run and test your recommender.
+from pathlib import Path
+from typing import Dict, List, Tuple
 
-You will implement the functions in recommender.py:
-- load_songs
-- score_song
-- recommend_songs
-"""
+from src.recommender import load_songs, recommend_songs
 
-from recommender import load_songs, recommend_songs
+
+def print_profile_results(
+    profile_name: str,
+    user_prefs: Dict,
+    songs: List[Dict],
+    k: int = 3,
+) -> None:
+    """Print recommendations for one example user profile."""
+    recommendations = recommend_songs(user_prefs, songs, k=k)
+
+    print("=" * 68)
+    print(f"Profile: {profile_name}")
+    print(
+        "Preferences: "
+        f"genre={user_prefs['genre']}, "
+        f"mood={user_prefs['mood']}, "
+        f"energy={user_prefs['energy']:.2f}, "
+        f"tempo={user_prefs['tempo_bpm']} bpm"
+    )
+    print("-" * 68)
+
+    for index, (song, score, reasons) in enumerate(recommendations, start=1):
+        artist_text = f" - {song['artist']}" if song.get("artist") else ""
+        print(f"{index}. {song['title']}{artist_text}")
+        print(f"   Score: {score:.2f}")
+
+        if reasons:
+            print("   Reasons:")
+            for reason in reasons:
+                print(f"   - {reason}")
+        else:
+            print("   Reasons: no strong matching features")
+
+        print()
 
 
 def main() -> None:
-    songs = load_songs("data/songs.csv") 
+    """Run the recommender with a few sample profiles."""
+    project_root = Path(__file__).resolve().parent.parent
+    csv_path = project_root / "data" / "songs.csv"
+    songs = load_songs(str(csv_path))
 
-    # Starter example profile
-    user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.8}
+    user_profiles: List[Tuple[str, Dict]] = [
+        (
+            "High-Energy Pop",
+            {"genre": "pop", "mood": "happy", "energy": 0.85, "tempo_bpm": 125},
+        ),
+        (
+            "Chill Lofi",
+            {"genre": "lofi", "mood": "chill", "energy": 0.35, "tempo_bpm": 75},
+        ),
+        (
+            "Deep Intense Rock",
+            {"genre": "rock", "mood": "intense", "energy": 0.90, "tempo_bpm": 150},
+        ),
+    ]
 
-    recommendations = recommend_songs(user_prefs, songs, k=5)
+    print("\nMusic Recommender Simulation")
+    print("=" * 68)
+    print(f"Loaded {len(songs)} songs from {csv_path.name}\n")
 
-    print("\nTop recommendations:\n")
-    for rec in recommendations:
-        # You decide the structure of each returned item.
-        # A common pattern is: (song, score, explanation)
-        song, score, explanation = rec
-        print(f"{song['title']} - Score: {score:.2f}")
-        print(f"Because: {explanation}")
-        print()
+    for profile_name, user_prefs in user_profiles:
+        print_profile_results(profile_name, user_prefs, songs)
 
 
 if __name__ == "__main__":

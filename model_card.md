@@ -1,111 +1,61 @@
-# 🎧 Model Card: Music Recommender Simulation
+# Model Card
 
-## 1. Model Name  
+## Model Name
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+Simple Vibe Match Recommender
 
----
+## Goal / Task
 
-## 2. Intended Use  
+The goal of this model is to recommend songs from a small CSV file based on a user's preferred genre, mood, energy level, and tempo. It is meant for classroom exploration, not for a real music product.
 
-Describe what your recommender is designed to do and who it is for. 
+## Data Used
 
-Prompts:  
+The system uses `data/songs.csv`, which currently has 10 songs. The file includes fields such as title, artist, genre, mood, energy, tempo, valence, danceability, and acousticness. The catalog has a small variety of genres and moods, but it is still too small to represent the full range of music taste.
 
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+## Algorithm Summary
 
----
+This is a content-based recommender with hand-made scoring rules. Each song gets:
 
-## 3. How the Model Works  
+- `+2.0` for a genre match
+- `+1.0` for a mood match
+- up to `+1.0` for energy closeness
+- up to `+0.5` for tempo closeness inside a simple 60 BPM gap window
 
-Explain your scoring approach in simple language.  
+The songs are then sorted from highest score to lowest score, and the top results are returned. The program also explains each recommendation with short reason strings.
 
-Prompts:  
+## Observed Behavior / Biases
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
+The recommender works best when the user's taste clearly matches the features in the dataset. It tends to reward exact genre and mood matches strongly, so songs in those categories often rise to the top. That can be useful, but it also means the system can be biased toward whatever genres and moods appear most clearly in the small dataset.
 
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+Because the catalog is tiny, some user tastes are not represented well. The system also ignores lyrics, artists the user already knows, cultural context, and changing taste over time.
 
----
+## Evaluation Process
 
-## 4. Data  
+I evaluated the model by running three sample profiles in `src/main.py`:
 
-Describe the dataset the model uses.  
+- High-Energy Pop
+- Chill Lofi
+- Deep Intense Rock
 
-Prompts:  
+I checked whether the top songs felt reasonable based on the score recipe. I also ran the starter tests to make sure the ranking logic and explanation behavior were working.
 
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+## Intended Use and Non-Intended Use
 
----
+Intended use:
 
-## 5. Strengths  
+- a classroom assignment
+- a simple demo of content-based recommendation
+- a transparent example that is easy to explain
 
-Where does your system seem to work well  
+Non-intended use:
 
-Prompts:  
+- real music streaming recommendations
+- high-stakes decision making
+- large-scale personalization for real users
 
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+## Ideas for Improvement
 
----
-
-## 6. Limitations and Bias 
-
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
-
----
-
-## 7. Evaluation  
-
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
-
----
-
-## 8. Future Work  
-
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
-
----
-
-## 9. Personal Reflection  
-
-A few sentences about your experience.  
-
-Prompts:  
-
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+- Add more songs so the catalog has better coverage
+- Support multiple favorite genres or moods instead of only one
+- Add a diversity rule so the top results are not too similar
+- Use more features, such as lyrics, release year, or user listening history
