@@ -86,6 +86,15 @@ Run the tests:
 pytest
 ```
 
+## Run locally
+
+To run the Streamlit app on your computer:
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
 ## Test User Profiles
 
 I used different user profiles to test whether the recommender responds to different music tastes.
