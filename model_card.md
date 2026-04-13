@@ -14,7 +14,9 @@ The system uses `data/songs.csv`, which currently has 10 songs. The file include
 
 ## Algorithm Summary
 
-This is a content-based recommender with hand-made scoring rules. Each song gets:
+This is a content-based recommender with simple hand-made scoring rules. It does not learn from user history. Instead, it compares each song to one user profile and gives points when the song looks like a good match.
+
+Each song gets:
 
 - `+2.0` for a genre match
 - `+1.0` for a mood match
@@ -27,7 +29,7 @@ The songs are then sorted from highest score to lowest score, and the top result
 
 The recommender works best when the user's taste clearly matches the features in the dataset. It tends to reward exact genre and mood matches strongly, so songs in those categories often rise to the top. That can be useful, but it also means the system can be biased toward whatever genres and moods appear most clearly in the small dataset.
 
-Because the catalog is tiny, some user tastes are not represented well. The system also ignores lyrics, artists the user already knows, cultural context, and changing taste over time.
+Because the catalog is tiny, some user tastes are not represented well. The system also ignores lyrics, artists the user already knows, cultural context, and changing taste over time. Another limitation is that the current profile only uses one favorite genre and one mood, so it cannot fully represent more mixed or complicated music taste.
 
 ## Evaluation Process
 

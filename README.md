@@ -1,10 +1,24 @@
 # Music Recommender Simulation
 
+## What Is a Recommender System?
+
+A recommender system is a program that tries to suggest things a user will probably like. In music apps, this can be based on song features, listening history, or patterns from other users. This project uses a simple content-based approach, which means it looks at the features of the songs instead of past user behavior.
+
+## How Real Recommender Systems Work
+
+Platforms like Spotify, YouTube, and TikTok use recommender systems to suggest songs, videos, or posts that a user might enjoy. They do this by looking at what people interact with and by looking at what the content is like.
+
+One common idea is collaborative filtering. This means the system recommends something based on what similar users liked. It uses behavior data such as likes, watch history, playlists, follows, or listening activity. Another common idea is content-based filtering. This means the system recommends items based on features such as genre, mood, energy, or tempo. It focuses more on what the user already seems to like.
+
+- Collaborative filtering: based on users and their behavior
+- Content-based filtering: based on item features
+- Real platforms usually combine both methods instead of using only one
+
 ## Project Summary
 
 This project is a small content-based music recommender written in Python. It loads songs from `data/songs.csv`, compares each song to a user preference profile, gives every song a score, and returns the top matches with human-readable reasons.
 
-Real recommendation systems are usually much bigger than this. Apps like Spotify or YouTube often combine user history, behavior from many users, and content features. This project simulates just one simple part of that idea: matching song features to what a user says they want.
+Real recommendation systems are usually much bigger than this. Apps like Spotify or YouTube often combine user history, behavior from many users, and content features. This project only simulates one simple part of that idea: matching song features to what a user says they want.
 
 ## What This Project Uses
 
@@ -72,7 +86,7 @@ These profiles make it easy to show different recommendation results in the term
 
 ## Terminal Output Screenshots
 
-These screenshots show example recommendations for multiple user profiles in the terminal.
+These screenshots show example recommendations for multiple user profiles in the terminal, plus optional test output.
 
 Save the screenshot files in: `images/`
 
