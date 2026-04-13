@@ -33,14 +33,24 @@ The features used in this project are:
 - `energy`
 - `tempo_bpm`
 
-The scoring recipe is:
+The algorithm has two parts: scoring one song and ranking the full song list.
+
+Scoring rule for one song:
 
 - Genre match = `+2.0`
 - Mood match = `+1.0`
 - Energy closeness = up to `+1.0`
 - Tempo closeness = up to `+0.5`
 
-This means exact genre and mood matches get clear bonus points, while energy and tempo are rewarded when they are close to the user's target. One limitation is that the system can over-prioritize genre, especially because the dataset is small.
+Genre has the strongest weight because it usually reflects music taste more strongly than the other features. Mood still matters, but it is a little more flexible.
+
+Energy and tempo use closeness because higher is not always better. Some users want calm or slower songs, so the goal is to match the user's target, not just reward bigger numbers.
+
+Ranking rule for the full song list:
+
+After each song is scored, all songs are sorted from highest score to lowest score. Then the recommender returns the top matches.
+
+One limitation is that the system can over-prioritize genre, especially because the dataset is small.
 
 ## What This Project Simulates
 
@@ -67,15 +77,32 @@ Run the tests:
 pytest
 ```
 
-## Example Profiles
+## Test User Profiles
 
-`src/main.py` includes three sample profiles:
+I used different user profiles to test whether the recommender responds to different music tastes.
 
-- High-Energy Pop
-- Chill Lofi
-- Deep Intense Rock
+### High-Energy Pop
 
-These profiles make it easy to show different recommendation results in the terminal.
+- genre: `pop`
+- mood: `happy`
+- energy: `0.85`
+- tempo: `125 bpm`
+
+### Chill Lofi
+
+- genre: `lofi`
+- mood: `chill`
+- energy: `0.35`
+- tempo: `75 bpm`
+
+### Deep Intense Rock
+
+- genre: `rock`
+- mood: `intense`
+- energy: `0.90`
+- tempo: `150 bpm`
+
+Comparing multiple profiles is useful because it shows whether the system changes its recommendations for different kinds of listeners.
 
 ## Terminal Output Screenshots
 
