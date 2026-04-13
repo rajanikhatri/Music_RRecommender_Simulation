@@ -20,34 +20,27 @@ This project is a small content-based music recommender written in Python. It lo
 
 Real recommendation systems are usually much bigger than this. Apps like Spotify or YouTube often combine user history, behavior from many users, and content features. This project only simulates one simple part of that idea: matching song features to what a user says they want.
 
-## What This Project Uses
+## How The System Works
 
-The recommender looks at these song features:
+Real recommender systems often use different kinds of data to predict what users may like. They might look at user behavior, item details, or both. This project uses a simple content-based approach instead of a large real-world system.
+
+In this project, the recommender compares a user's preferences with the features of each song and gives every song a score. The higher the score, the better the match.
+
+The features used in this project are:
 
 - `genre`
 - `mood`
 - `energy`
 - `tempo_bpm`
 
-The current dataset has 10 songs with a small mix of genres and moods such as pop, lofi, rock, ambient, jazz, synthwave, happy, chill, intense, and focused.
+The scoring recipe is:
 
-## Algorithm Recipe
+- Genre match = `+2.0`
+- Mood match = `+1.0`
+- Energy closeness = up to `+1.0`
+- Tempo closeness = up to `+0.5`
 
-Each song starts at a score of `0`.
-
-- Add `+2.0` if the genre matches the user's favorite genre
-- Add `+1.0` if the mood matches the user's favorite mood
-- Add up to `+1.0` for energy closeness using `1 - abs(song_energy - target_energy)`
-- Add up to `+0.5` for tempo closeness using a simple 60 BPM gap formula if the profile includes a target tempo
-
-After that, the program sorts all songs from highest score to lowest score and returns the top `k` songs.
-
-Each recommendation also includes short reasons such as:
-
-- `genre match (+2.0)`
-- `mood match (+1.0)`
-- `energy close (+0.92)`
-- `tempo close (+0.44)`
+This means exact genre and mood matches get clear bonus points, while energy and tempo are rewarded when they are close to the user's target. One limitation is that the system can over-prioritize genre, especially because the dataset is small.
 
 ## What This Project Simulates
 
